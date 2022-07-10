@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package leaf.v1;
+
+option go_package = "go-leaf/api/leaf/v1;v1";
+option java_multiple_files = true;
+option java_package = "leaf.v1";
+option objc_class_prefix = "APILeafV1";
+
+enum ErrorReason {
+  UNKNOWN = 0;
+  ID_GENERATE_FAILED = 1000;
+}

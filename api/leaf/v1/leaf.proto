@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package leaf.v1;
+
+import "google/api/annotations.proto";
+
+option go_package = "go-leaf/api/leaf/v1;v1";
+option java_multiple_files = true;
+option java_package = "dev.kratos.api.leaf.v1";
+option java_outer_classname = "LeafProtoV1";
+
+// The greeting service definition.
+service Leaf {
+  // Sends a greeting
+  rpc Segment (SegmentRequest) returns (SegmentReply) {
+    option (google.api.http) = {
+      get: "/segment/{key}"
+    };
+  }
+}
+
+// The request message containing the user's name.
+message SegmentRequest {
+  string key = 1;
+}
+
+// The response message containing the greetings
+message SegmentReply {
+  string message = 1;
+}

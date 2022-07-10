@@ -1,0 +1,37 @@
+syntax = "proto3";
+package kratos.api;
+
+option go_package = "go-leaf/internal/conf;conf";
+
+import "google/protobuf/duration.proto";
+
+message Bootstrap {
+  Server server = 1;
+  Data data = 2;
+}
+
+message Server {
+  message HTTP {
+    string network = 1;
+    string addr = 2;
+    google.protobuf.Duration timeout = 3;
+  }
+  message GRPC {
+    string network = 1;
+    string addr = 2;
+    google.protobuf.Duration timeout = 3;
+  }
+  HTTP http = 1;
+  GRPC grpc = 2;
+}
+
+message Data {
+  message Database {
+    string driver = 1;
+    string source = 2;
+    bool debug = 3;
+    int64 maxIdle = 4;
+    int64 maxOpen = 5;
+  }
+  Database database = 1;
+}
