@@ -25,13 +25,13 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/leaf.v1.SegmentReply'
+                                $ref: '#/components/schemas/leaf.v1.IdReply'
 components:
     schemas:
-        leaf.v1.SegmentReply:
+        leaf.v1.IdReply:
             type: object
             properties:
-                message:
+                id:
                     type: string
             description: The response message containing the greetings
 tags:

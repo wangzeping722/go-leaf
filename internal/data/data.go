@@ -19,16 +19,16 @@ type Data struct {
 }
 
 // NewData .
-func NewData(c *conf.Data, logger log.Logger) (*Data, func(), error) {
+func NewData(c *conf.Leaf, logger log.Logger) (*Data, func(), error) {
 	cleanup := func() {
 		log.NewHelper(logger).Info("closing the data resources")
 	}
 
 	ll := gl.Warn
-	if c.Database.Debug {
+	if c.Segment.Database.Debug {
 		ll = gl.Info
 	}
-	db, err := gorm.Open(mysql.Open(c.Database.Source), &gorm.Config{
+	db, err := gorm.Open(mysql.Open(c.Segment.Database.Source), &gorm.Config{
 		Logger: gl.Default.LogMode(ll),
 	})
 	if err != nil {
@@ -41,8 +41,8 @@ func NewData(c *conf.Data, logger log.Logger) (*Data, func(), error) {
 		log.Fatalf("failed opening connection to mysql: %v", err)
 	}
 
-	idb.SetMaxIdleConns(int(c.Database.MaxIdle))
-	idb.SetMaxOpenConns(int(c.Database.MaxOpen))
+	idb.SetMaxIdleConns(int(c.Segment.Database.MaxIdle))
+	idb.SetMaxOpenConns(int(c.Segment.Database.MaxOpen))
 
 	return &Data{db: db}, cleanup, nil
 }

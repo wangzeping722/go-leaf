@@ -9,3 +9,15 @@ data:
   database:
     driver: mysql
     source: root:123456@tcp(127.0.0.1:3306)/leaf?charset=utf8mb4&parseTime=True&loc=Local
+
+leaf:
+  segment:
+    enable: true
+    database:
+      driver: mysql
+      source: root:123456@tcp(127.0.0.1:3306)/leaf?charset=utf8mb4&parseTime=True&loc=Local
+  snowflake:
+    enable: false
+    zk:
+      address:
+      port:

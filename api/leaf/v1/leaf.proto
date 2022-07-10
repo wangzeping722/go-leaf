@@ -12,7 +12,7 @@ option java_outer_classname = "LeafProtoV1";
 // The greeting service definition.
 service Leaf {
   // Sends a greeting
-  rpc Segment (SegmentRequest) returns (SegmentReply) {
+  rpc Segment (SegmentRequest) returns (IdReply) {
     option (google.api.http) = {
       get: "/segment/{key}"
     };
@@ -25,6 +25,6 @@ message SegmentRequest {
 }
 
 // The response message containing the greetings
-message SegmentReply {
-  string message = 1;
+message IdReply {
+  string id = 3;
 }

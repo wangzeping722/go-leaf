@@ -19,14 +19,14 @@ import (
 // Injectors from wire.go:
 
 // wireApp init kratos application.
-func wireApp(confServer *conf.Server, confData *conf.Data, logger log.Logger) (*kratos.App, func(), error) {
-	dataData, cleanup, err := data.NewData(confData, logger)
+func wireApp(confServer *conf.Server, leaf *conf.Leaf, logger log.Logger) (*kratos.App, func(), error) {
+	dataData, cleanup, err := data.NewData(leaf, logger)
 	if err != nil {
 		return nil, nil, err
 	}
 	leafAllocRepo := data.NewLeafAllocRepo(dataData, logger)
 	leafAllocUsecase := biz.NewLeafAllocUsecase(leafAllocRepo, logger)
-	segmentService := service.NewSegmentService(leafAllocUsecase, logger)
+	segmentService := service.NewSegmentService(leaf, leafAllocUsecase, logger)
 	leafService := service.NewLeafService(segmentService, logger)
 	httpServer := server.NewHTTPServer(confServer, leafService, logger)
 	grpcServer := server.NewGRPCServer(confServer, leafService, logger)

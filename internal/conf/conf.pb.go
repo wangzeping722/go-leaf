@@ -27,7 +27,7 @@ type Bootstrap struct {
 	unknownFields protoimpl.UnknownFields
 
 	Server *Server `protobuf:"bytes,1,opt,name=server,proto3" json:"server,omitempty"`
-	Data   *Data   `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty"`
+	Leaf   *Leaf   `protobuf:"bytes,2,opt,name=leaf,proto3" json:"leaf,omitempty"`
 }
 
 func (x *Bootstrap) Reset() {
@@ -69,9 +69,9 @@ func (x *Bootstrap) GetServer() *Server {
 	return nil
 }
 
-func (x *Bootstrap) GetData() *Data {
+func (x *Bootstrap) GetLeaf() *Leaf {
 	if x != nil {
-		return x.Data
+		return x.Leaf
 	}
 	return nil
 }
@@ -131,16 +131,20 @@ func (x *Server) GetGrpc() *Server_GRPC {
 	return nil
 }
 
-type Data struct {
+type Database struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Database *Data_Database `protobuf:"bytes,1,opt,name=database,proto3" json:"database,omitempty"`
+	Driver  string `protobuf:"bytes,1,opt,name=driver,proto3" json:"driver,omitempty"`
+	Source  string `protobuf:"bytes,2,opt,name=source,proto3" json:"source,omitempty"`
+	Debug   bool   `protobuf:"varint,3,opt,name=debug,proto3" json:"debug,omitempty"`
+	MaxIdle int64  `protobuf:"varint,4,opt,name=maxIdle,proto3" json:"maxIdle,omitempty"`
+	MaxOpen int64  `protobuf:"varint,5,opt,name=maxOpen,proto3" json:"maxOpen,omitempty"`
 }
 
-func (x *Data) Reset() {
-	*x = Data{}
+func (x *Database) Reset() {
+	*x = Database{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_conf_conf_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -148,13 +152,13 @@ func (x *Data) Reset() {
 	}
 }
 
-func (x *Data) String() string {
+func (x *Database) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Data) ProtoMessage() {}
+func (*Database) ProtoMessage() {}
 
-func (x *Data) ProtoReflect() protoreflect.Message {
+func (x *Database) ProtoReflect() protoreflect.Message {
 	mi := &file_conf_conf_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -166,14 +170,152 @@ func (x *Data) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Data.ProtoReflect.Descriptor instead.
-func (*Data) Descriptor() ([]byte, []int) {
+// Deprecated: Use Database.ProtoReflect.Descriptor instead.
+func (*Database) Descriptor() ([]byte, []int) {
 	return file_conf_conf_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *Data) GetDatabase() *Data_Database {
+func (x *Database) GetDriver() string {
 	if x != nil {
-		return x.Database
+		return x.Driver
+	}
+	return ""
+}
+
+func (x *Database) GetSource() string {
+	if x != nil {
+		return x.Source
+	}
+	return ""
+}
+
+func (x *Database) GetDebug() bool {
+	if x != nil {
+		return x.Debug
+	}
+	return false
+}
+
+func (x *Database) GetMaxIdle() int64 {
+	if x != nil {
+		return x.MaxIdle
+	}
+	return 0
+}
+
+func (x *Database) GetMaxOpen() int64 {
+	if x != nil {
+		return x.MaxOpen
+	}
+	return 0
+}
+
+type Zk struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Address string `protobuf:"bytes,1,opt,name=address,proto3" json:"address,omitempty"`
+	Port    int32  `protobuf:"varint,2,opt,name=port,proto3" json:"port,omitempty"`
+}
+
+func (x *Zk) Reset() {
+	*x = Zk{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_conf_conf_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Zk) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Zk) ProtoMessage() {}
+
+func (x *Zk) ProtoReflect() protoreflect.Message {
+	mi := &file_conf_conf_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Zk.ProtoReflect.Descriptor instead.
+func (*Zk) Descriptor() ([]byte, []int) {
+	return file_conf_conf_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *Zk) GetAddress() string {
+	if x != nil {
+		return x.Address
+	}
+	return ""
+}
+
+func (x *Zk) GetPort() int32 {
+	if x != nil {
+		return x.Port
+	}
+	return 0
+}
+
+type Leaf struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Segment   *Leaf_Segment   `protobuf:"bytes,1,opt,name=segment,proto3" json:"segment,omitempty"`
+	Snowflake *Leaf_Snowflake `protobuf:"bytes,2,opt,name=snowflake,proto3" json:"snowflake,omitempty"`
+}
+
+func (x *Leaf) Reset() {
+	*x = Leaf{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_conf_conf_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Leaf) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Leaf) ProtoMessage() {}
+
+func (x *Leaf) ProtoReflect() protoreflect.Message {
+	mi := &file_conf_conf_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Leaf.ProtoReflect.Descriptor instead.
+func (*Leaf) Descriptor() ([]byte, []int) {
+	return file_conf_conf_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *Leaf) GetSegment() *Leaf_Segment {
+	if x != nil {
+		return x.Segment
+	}
+	return nil
+}
+
+func (x *Leaf) GetSnowflake() *Leaf_Snowflake {
+	if x != nil {
+		return x.Snowflake
 	}
 	return nil
 }
@@ -191,7 +333,7 @@ type Server_HTTP struct {
 func (x *Server_HTTP) Reset() {
 	*x = Server_HTTP{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conf_conf_proto_msgTypes[3]
+		mi := &file_conf_conf_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -204,7 +346,7 @@ func (x *Server_HTTP) String() string {
 func (*Server_HTTP) ProtoMessage() {}
 
 func (x *Server_HTTP) ProtoReflect() protoreflect.Message {
-	mi := &file_conf_conf_proto_msgTypes[3]
+	mi := &file_conf_conf_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -254,7 +396,7 @@ type Server_GRPC struct {
 func (x *Server_GRPC) Reset() {
 	*x = Server_GRPC{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conf_conf_proto_msgTypes[4]
+		mi := &file_conf_conf_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -267,7 +409,7 @@ func (x *Server_GRPC) String() string {
 func (*Server_GRPC) ProtoMessage() {}
 
 func (x *Server_GRPC) ProtoReflect() protoreflect.Message {
-	mi := &file_conf_conf_proto_msgTypes[4]
+	mi := &file_conf_conf_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -304,35 +446,32 @@ func (x *Server_GRPC) GetTimeout() *durationpb.Duration {
 	return nil
 }
 
-type Data_Database struct {
+type Leaf_Segment struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Driver  string `protobuf:"bytes,1,opt,name=driver,proto3" json:"driver,omitempty"`
-	Source  string `protobuf:"bytes,2,opt,name=source,proto3" json:"source,omitempty"`
-	Debug   bool   `protobuf:"varint,3,opt,name=debug,proto3" json:"debug,omitempty"`
-	MaxIdle int64  `protobuf:"varint,4,opt,name=maxIdle,proto3" json:"maxIdle,omitempty"`
-	MaxOpen int64  `protobuf:"varint,5,opt,name=maxOpen,proto3" json:"maxOpen,omitempty"`
+	Enable   bool      `protobuf:"varint,1,opt,name=enable,proto3" json:"enable,omitempty"`
+	Database *Database `protobuf:"bytes,2,opt,name=database,proto3" json:"database,omitempty"`
 }
 
-func (x *Data_Database) Reset() {
-	*x = Data_Database{}
+func (x *Leaf_Segment) Reset() {
+	*x = Leaf_Segment{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_conf_conf_proto_msgTypes[5]
+		mi := &file_conf_conf_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
 }
 
-func (x *Data_Database) String() string {
+func (x *Leaf_Segment) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Data_Database) ProtoMessage() {}
+func (*Leaf_Segment) ProtoMessage() {}
 
-func (x *Data_Database) ProtoReflect() protoreflect.Message {
-	mi := &file_conf_conf_proto_msgTypes[5]
+func (x *Leaf_Segment) ProtoReflect() protoreflect.Message {
+	mi := &file_conf_conf_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -343,44 +482,78 @@ func (x *Data_Database) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Data_Database.ProtoReflect.Descriptor instead.
-func (*Data_Database) Descriptor() ([]byte, []int) {
-	return file_conf_conf_proto_rawDescGZIP(), []int{2, 0}
+// Deprecated: Use Leaf_Segment.ProtoReflect.Descriptor instead.
+func (*Leaf_Segment) Descriptor() ([]byte, []int) {
+	return file_conf_conf_proto_rawDescGZIP(), []int{4, 0}
 }
 
-func (x *Data_Database) GetDriver() string {
+func (x *Leaf_Segment) GetEnable() bool {
 	if x != nil {
-		return x.Driver
-	}
-	return ""
-}
-
-func (x *Data_Database) GetSource() string {
-	if x != nil {
-		return x.Source
-	}
-	return ""
-}
-
-func (x *Data_Database) GetDebug() bool {
-	if x != nil {
-		return x.Debug
+		return x.Enable
 	}
 	return false
 }
 
-func (x *Data_Database) GetMaxIdle() int64 {
+func (x *Leaf_Segment) GetDatabase() *Database {
 	if x != nil {
-		return x.MaxIdle
+		return x.Database
 	}
-	return 0
+	return nil
 }
 
-func (x *Data_Database) GetMaxOpen() int64 {
-	if x != nil {
-		return x.MaxOpen
+type Leaf_Snowflake struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Enable bool `protobuf:"varint,1,opt,name=enable,proto3" json:"enable,omitempty"`
+	Zk     *Zk  `protobuf:"bytes,2,opt,name=zk,proto3" json:"zk,omitempty"`
+}
+
+func (x *Leaf_Snowflake) Reset() {
+	*x = Leaf_Snowflake{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_conf_conf_proto_msgTypes[8]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
 	}
-	return 0
+}
+
+func (x *Leaf_Snowflake) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Leaf_Snowflake) ProtoMessage() {}
+
+func (x *Leaf_Snowflake) ProtoReflect() protoreflect.Message {
+	mi := &file_conf_conf_proto_msgTypes[8]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Leaf_Snowflake.ProtoReflect.Descriptor instead.
+func (*Leaf_Snowflake) Descriptor() ([]byte, []int) {
+	return file_conf_conf_proto_rawDescGZIP(), []int{4, 1}
+}
+
+func (x *Leaf_Snowflake) GetEnable() bool {
+	if x != nil {
+		return x.Enable
+	}
+	return false
+}
+
+func (x *Leaf_Snowflake) GetZk() *Zk {
+	if x != nil {
+		return x.Zk
+	}
+	return nil
 }
 
 var File_conf_conf_proto protoreflect.FileDescriptor
@@ -393,9 +566,9 @@ var file_conf_conf_proto_rawDesc = []byte{
 	0x09, 0x42, 0x6f, 0x6f, 0x74, 0x73, 0x74, 0x72, 0x61, 0x70, 0x12, 0x2a, 0x0a, 0x06, 0x73, 0x65,
 	0x72, 0x76, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x12, 0x2e, 0x6b, 0x72, 0x61,
 	0x74, 0x6f, 0x73, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x53, 0x65, 0x72, 0x76, 0x65, 0x72, 0x52, 0x06,
-	0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x12, 0x24, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x61, 0x18, 0x02,
+	0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x12, 0x24, 0x0a, 0x04, 0x6c, 0x65, 0x61, 0x66, 0x18, 0x02,
 	0x20, 0x01, 0x28, 0x0b, 0x32, 0x10, 0x2e, 0x6b, 0x72, 0x61, 0x74, 0x6f, 0x73, 0x2e, 0x61, 0x70,
-	0x69, 0x2e, 0x44, 0x61, 0x74, 0x61, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x22, 0xb8, 0x02, 0x0a,
+	0x69, 0x2e, 0x4c, 0x65, 0x61, 0x66, 0x52, 0x04, 0x6c, 0x65, 0x61, 0x66, 0x22, 0xb8, 0x02, 0x0a,
 	0x06, 0x53, 0x65, 0x72, 0x76, 0x65, 0x72, 0x12, 0x2b, 0x0a, 0x04, 0x68, 0x74, 0x74, 0x70, 0x18,
 	0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x17, 0x2e, 0x6b, 0x72, 0x61, 0x74, 0x6f, 0x73, 0x2e, 0x61,
 	0x70, 0x69, 0x2e, 0x53, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2e, 0x48, 0x54, 0x54, 0x50, 0x52, 0x04,
@@ -415,11 +588,7 @@ var file_conf_conf_proto_rawDesc = []byte{
 	0x64, 0x72, 0x12, 0x33, 0x0a, 0x07, 0x74, 0x69, 0x6d, 0x65, 0x6f, 0x75, 0x74, 0x18, 0x03, 0x20,
 	0x01, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f,
 	0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x44, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x07,
-	0x74, 0x69, 0x6d, 0x65, 0x6f, 0x75, 0x74, 0x22, 0xc4, 0x01, 0x0a, 0x04, 0x44, 0x61, 0x74, 0x61,
-	0x12, 0x35, 0x0a, 0x08, 0x64, 0x61, 0x74, 0x61, 0x62, 0x61, 0x73, 0x65, 0x18, 0x01, 0x20, 0x01,
-	0x28, 0x0b, 0x32, 0x19, 0x2e, 0x6b, 0x72, 0x61, 0x74, 0x6f, 0x73, 0x2e, 0x61, 0x70, 0x69, 0x2e,
-	0x44, 0x61, 0x74, 0x61, 0x2e, 0x44, 0x61, 0x74, 0x61, 0x62, 0x61, 0x73, 0x65, 0x52, 0x08, 0x64,
-	0x61, 0x74, 0x61, 0x62, 0x61, 0x73, 0x65, 0x1a, 0x84, 0x01, 0x0a, 0x08, 0x44, 0x61, 0x74, 0x61,
+	0x74, 0x69, 0x6d, 0x65, 0x6f, 0x75, 0x74, 0x22, 0x84, 0x01, 0x0a, 0x08, 0x44, 0x61, 0x74, 0x61,
 	0x62, 0x61, 0x73, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x64, 0x72, 0x69, 0x76, 0x65, 0x72, 0x18, 0x01,
 	0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x64, 0x72, 0x69, 0x76, 0x65, 0x72, 0x12, 0x16, 0x0a, 0x06,
 	0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x73, 0x6f,
@@ -427,10 +596,30 @@ var file_conf_conf_proto_rawDesc = []byte{
 	0x01, 0x28, 0x08, 0x52, 0x05, 0x64, 0x65, 0x62, 0x75, 0x67, 0x12, 0x18, 0x0a, 0x07, 0x6d, 0x61,
 	0x78, 0x49, 0x64, 0x6c, 0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x03, 0x52, 0x07, 0x6d, 0x61, 0x78,
 	0x49, 0x64, 0x6c, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x6d, 0x61, 0x78, 0x4f, 0x70, 0x65, 0x6e, 0x18,
-	0x05, 0x20, 0x01, 0x28, 0x03, 0x52, 0x07, 0x6d, 0x61, 0x78, 0x4f, 0x70, 0x65, 0x6e, 0x42, 0x1c,
-	0x5a, 0x1a, 0x67, 0x6f, 0x2d, 0x6c, 0x65, 0x61, 0x66, 0x2f, 0x69, 0x6e, 0x74, 0x65, 0x72, 0x6e,
-	0x61, 0x6c, 0x2f, 0x63, 0x6f, 0x6e, 0x66, 0x3b, 0x63, 0x6f, 0x6e, 0x66, 0x62, 0x06, 0x70, 0x72,
-	0x6f, 0x74, 0x6f, 0x33,
+	0x05, 0x20, 0x01, 0x28, 0x03, 0x52, 0x07, 0x6d, 0x61, 0x78, 0x4f, 0x70, 0x65, 0x6e, 0x22, 0x32,
+	0x0a, 0x02, 0x5a, 0x6b, 0x12, 0x18, 0x0a, 0x07, 0x61, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x61, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x12, 0x12,
+	0x0a, 0x04, 0x70, 0x6f, 0x72, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x04, 0x70, 0x6f,
+	0x72, 0x74, 0x22, 0x8e, 0x02, 0x0a, 0x04, 0x4c, 0x65, 0x61, 0x66, 0x12, 0x32, 0x0a, 0x07, 0x73,
+	0x65, 0x67, 0x6d, 0x65, 0x6e, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x18, 0x2e, 0x6b,
+	0x72, 0x61, 0x74, 0x6f, 0x73, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x4c, 0x65, 0x61, 0x66, 0x2e, 0x53,
+	0x65, 0x67, 0x6d, 0x65, 0x6e, 0x74, 0x52, 0x07, 0x73, 0x65, 0x67, 0x6d, 0x65, 0x6e, 0x74, 0x12,
+	0x38, 0x0a, 0x09, 0x73, 0x6e, 0x6f, 0x77, 0x66, 0x6c, 0x61, 0x6b, 0x65, 0x18, 0x02, 0x20, 0x01,
+	0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x6b, 0x72, 0x61, 0x74, 0x6f, 0x73, 0x2e, 0x61, 0x70, 0x69, 0x2e,
+	0x4c, 0x65, 0x61, 0x66, 0x2e, 0x53, 0x6e, 0x6f, 0x77, 0x66, 0x6c, 0x61, 0x6b, 0x65, 0x52, 0x09,
+	0x73, 0x6e, 0x6f, 0x77, 0x66, 0x6c, 0x61, 0x6b, 0x65, 0x1a, 0x53, 0x0a, 0x07, 0x53, 0x65, 0x67,
+	0x6d, 0x65, 0x6e, 0x74, 0x12, 0x16, 0x0a, 0x06, 0x65, 0x6e, 0x61, 0x62, 0x6c, 0x65, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x08, 0x52, 0x06, 0x65, 0x6e, 0x61, 0x62, 0x6c, 0x65, 0x12, 0x30, 0x0a, 0x08,
+	0x64, 0x61, 0x74, 0x61, 0x62, 0x61, 0x73, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x14,
+	0x2e, 0x6b, 0x72, 0x61, 0x74, 0x6f, 0x73, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x44, 0x61, 0x74, 0x61,
+	0x62, 0x61, 0x73, 0x65, 0x52, 0x08, 0x64, 0x61, 0x74, 0x61, 0x62, 0x61, 0x73, 0x65, 0x1a, 0x43,
+	0x0a, 0x09, 0x53, 0x6e, 0x6f, 0x77, 0x66, 0x6c, 0x61, 0x6b, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x65,
+	0x6e, 0x61, 0x62, 0x6c, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x08, 0x52, 0x06, 0x65, 0x6e, 0x61,
+	0x62, 0x6c, 0x65, 0x12, 0x1e, 0x0a, 0x02, 0x7a, 0x6b, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32,
+	0x0e, 0x2e, 0x6b, 0x72, 0x61, 0x74, 0x6f, 0x73, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x5a, 0x6b, 0x52,
+	0x02, 0x7a, 0x6b, 0x42, 0x1c, 0x5a, 0x1a, 0x67, 0x6f, 0x2d, 0x6c, 0x65, 0x61, 0x66, 0x2f, 0x69,
+	0x6e, 0x74, 0x65, 0x72, 0x6e, 0x61, 0x6c, 0x2f, 0x63, 0x6f, 0x6e, 0x66, 0x3b, 0x63, 0x6f, 0x6e,
+	0x66, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -445,29 +634,35 @@ func file_conf_conf_proto_rawDescGZIP() []byte {
 	return file_conf_conf_proto_rawDescData
 }
 
-var file_conf_conf_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_conf_conf_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
 var file_conf_conf_proto_goTypes = []interface{}{
 	(*Bootstrap)(nil),           // 0: kratos.api.Bootstrap
 	(*Server)(nil),              // 1: kratos.api.Server
-	(*Data)(nil),                // 2: kratos.api.Data
-	(*Server_HTTP)(nil),         // 3: kratos.api.Server.HTTP
-	(*Server_GRPC)(nil),         // 4: kratos.api.Server.GRPC
-	(*Data_Database)(nil),       // 5: kratos.api.Data.Database
-	(*durationpb.Duration)(nil), // 6: google.protobuf.Duration
+	(*Database)(nil),            // 2: kratos.api.Database
+	(*Zk)(nil),                  // 3: kratos.api.Zk
+	(*Leaf)(nil),                // 4: kratos.api.Leaf
+	(*Server_HTTP)(nil),         // 5: kratos.api.Server.HTTP
+	(*Server_GRPC)(nil),         // 6: kratos.api.Server.GRPC
+	(*Leaf_Segment)(nil),        // 7: kratos.api.Leaf.Segment
+	(*Leaf_Snowflake)(nil),      // 8: kratos.api.Leaf.Snowflake
+	(*durationpb.Duration)(nil), // 9: google.protobuf.Duration
 }
 var file_conf_conf_proto_depIdxs = []int32{
-	1, // 0: kratos.api.Bootstrap.server:type_name -> kratos.api.Server
-	2, // 1: kratos.api.Bootstrap.data:type_name -> kratos.api.Data
-	3, // 2: kratos.api.Server.http:type_name -> kratos.api.Server.HTTP
-	4, // 3: kratos.api.Server.grpc:type_name -> kratos.api.Server.GRPC
-	5, // 4: kratos.api.Data.database:type_name -> kratos.api.Data.Database
-	6, // 5: kratos.api.Server.HTTP.timeout:type_name -> google.protobuf.Duration
-	6, // 6: kratos.api.Server.GRPC.timeout:type_name -> google.protobuf.Duration
-	7, // [7:7] is the sub-list for method output_type
-	7, // [7:7] is the sub-list for method input_type
-	7, // [7:7] is the sub-list for extension type_name
-	7, // [7:7] is the sub-list for extension extendee
-	0, // [0:7] is the sub-list for field type_name
+	1,  // 0: kratos.api.Bootstrap.server:type_name -> kratos.api.Server
+	4,  // 1: kratos.api.Bootstrap.leaf:type_name -> kratos.api.Leaf
+	5,  // 2: kratos.api.Server.http:type_name -> kratos.api.Server.HTTP
+	6,  // 3: kratos.api.Server.grpc:type_name -> kratos.api.Server.GRPC
+	7,  // 4: kratos.api.Leaf.segment:type_name -> kratos.api.Leaf.Segment
+	8,  // 5: kratos.api.Leaf.snowflake:type_name -> kratos.api.Leaf.Snowflake
+	9,  // 6: kratos.api.Server.HTTP.timeout:type_name -> google.protobuf.Duration
+	9,  // 7: kratos.api.Server.GRPC.timeout:type_name -> google.protobuf.Duration
+	2,  // 8: kratos.api.Leaf.Segment.database:type_name -> kratos.api.Database
+	3,  // 9: kratos.api.Leaf.Snowflake.zk:type_name -> kratos.api.Zk
+	10, // [10:10] is the sub-list for method output_type
+	10, // [10:10] is the sub-list for method input_type
+	10, // [10:10] is the sub-list for extension type_name
+	10, // [10:10] is the sub-list for extension extendee
+	0,  // [0:10] is the sub-list for field type_name
 }
 
 func init() { file_conf_conf_proto_init() }
@@ -501,7 +696,7 @@ func file_conf_conf_proto_init() {
 			}
 		}
 		file_conf_conf_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Data); i {
+			switch v := v.(*Database); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -513,7 +708,7 @@ func file_conf_conf_proto_init() {
 			}
 		}
 		file_conf_conf_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Server_HTTP); i {
+			switch v := v.(*Zk); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -525,7 +720,7 @@ func file_conf_conf_proto_init() {
 			}
 		}
 		file_conf_conf_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Server_GRPC); i {
+			switch v := v.(*Leaf); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -537,7 +732,43 @@ func file_conf_conf_proto_init() {
 			}
 		}
 		file_conf_conf_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Data_Database); i {
+			switch v := v.(*Server_HTTP); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_conf_conf_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Server_GRPC); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_conf_conf_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Leaf_Segment); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_conf_conf_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Leaf_Snowflake); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -555,7 +786,7 @@ func file_conf_conf_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_conf_conf_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   9,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

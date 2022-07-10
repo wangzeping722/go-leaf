@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"strconv"
 
 	pb "go-leaf/api/leaf/v1"
 
@@ -21,6 +22,11 @@ func NewLeafService(ss *segmentService, logger log.Logger) *LeafService {
 	}
 }
 
-func (s *LeafService) Segment(ctx context.Context, req *pb.SegmentRequest) (*pb.SegmentReply, error) {
-	return &pb.SegmentReply{}, nil
+func (s *LeafService) Segment(ctx context.Context, req *pb.SegmentRequest) (*pb.IdReply, error) {
+	id, err := s.segSvc.GetId(ctx)
+	if err != nil {
+		s.log.Errorf("id生成失败: %s", err.Error())
+		return nil, pb.ErrorIdGenerateFailed("id生成失败")
+	}
+	return &pb.IdReply{Id: strconv.FormatInt(id, 10)}, nil
 }

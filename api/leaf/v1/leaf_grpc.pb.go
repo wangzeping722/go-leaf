@@ -23,7 +23,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type LeafClient interface {
 	// Sends a greeting
-	Segment(ctx context.Context, in *SegmentRequest, opts ...grpc.CallOption) (*SegmentReply, error)
+	Segment(ctx context.Context, in *SegmentRequest, opts ...grpc.CallOption) (*IdReply, error)
 }
 
 type leafClient struct {
@@ -34,8 +34,8 @@ func NewLeafClient(cc grpc.ClientConnInterface) LeafClient {
 	return &leafClient{cc}
 }
 
-func (c *leafClient) Segment(ctx context.Context, in *SegmentRequest, opts ...grpc.CallOption) (*SegmentReply, error) {
-	out := new(SegmentReply)
+func (c *leafClient) Segment(ctx context.Context, in *SegmentRequest, opts ...grpc.CallOption) (*IdReply, error) {
+	out := new(IdReply)
 	err := c.cc.Invoke(ctx, "/leaf.v1.Leaf/Segment", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -48,7 +48,7 @@ func (c *leafClient) Segment(ctx context.Context, in *SegmentRequest, opts ...gr
 // for forward compatibility
 type LeafServer interface {
 	// Sends a greeting
-	Segment(context.Context, *SegmentRequest) (*SegmentReply, error)
+	Segment(context.Context, *SegmentRequest) (*IdReply, error)
 	mustEmbedUnimplementedLeafServer()
 }
 
@@ -56,7 +56,7 @@ type LeafServer interface {
 type UnimplementedLeafServer struct {
 }
 
-func (UnimplementedLeafServer) Segment(context.Context, *SegmentRequest) (*SegmentReply, error) {
+func (UnimplementedLeafServer) Segment(context.Context, *SegmentRequest) (*IdReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Segment not implemented")
 }
 func (UnimplementedLeafServer) mustEmbedUnimplementedLeafServer() {}

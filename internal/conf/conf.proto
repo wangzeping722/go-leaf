@@ -7,7 +7,7 @@ import "google/protobuf/duration.proto";
 
 message Bootstrap {
   Server server = 1;
-  Data data = 2;
+  Leaf leaf = 2;
 }
 
 message Server {
@@ -25,13 +25,30 @@ message Server {
   GRPC grpc = 2;
 }
 
-message Data {
-  message Database {
-    string driver = 1;
-    string source = 2;
-    bool debug = 3;
-    int64 maxIdle = 4;
-    int64 maxOpen = 5;
+message Database {
+  string driver = 1;
+  string source = 2;
+  bool debug = 3;
+  int64 maxIdle = 4;
+  int64 maxOpen = 5;
+}
+
+message Zk {
+  string address = 1;
+  int32 port = 2;
+}
+
+message Leaf {
+  message Segment {
+    bool enable = 1;
+    Database database = 2;
   }
-  Database database = 1;
+
+  message Snowflake {
+    bool enable = 1;
+    Zk zk = 2;
+  }
+
+  Segment segment = 1;
+  Snowflake snowflake = 2;
 }

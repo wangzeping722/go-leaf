@@ -22,7 +22,7 @@ const _ = http.SupportPackageIsVersion1
 const OperationLeafSegment = "/leaf.v1.Leaf/Segment"
 
 type LeafHTTPServer interface {
-	Segment(context.Context, *SegmentRequest) (*SegmentReply, error)
+	Segment(context.Context, *SegmentRequest) (*IdReply, error)
 }
 
 func RegisterLeafHTTPServer(s *http.Server, srv LeafHTTPServer) {
@@ -47,13 +47,13 @@ func _Leaf_Segment0_HTTP_Handler(srv LeafHTTPServer) func(ctx http.Context) erro
 		if err != nil {
 			return err
 		}
-		reply := out.(*SegmentReply)
+		reply := out.(*IdReply)
 		return ctx.Result(200, reply)
 	}
 }
 
 type LeafHTTPClient interface {
-	Segment(ctx context.Context, req *SegmentRequest, opts ...http.CallOption) (rsp *SegmentReply, err error)
+	Segment(ctx context.Context, req *SegmentRequest, opts ...http.CallOption) (rsp *IdReply, err error)
 }
 
 type LeafHTTPClientImpl struct {
@@ -64,8 +64,8 @@ func NewLeafHTTPClient(client *http.Client) LeafHTTPClient {
 	return &LeafHTTPClientImpl{client}
 }
 
-func (c *LeafHTTPClientImpl) Segment(ctx context.Context, in *SegmentRequest, opts ...http.CallOption) (*SegmentReply, error) {
-	var out SegmentReply
+func (c *LeafHTTPClientImpl) Segment(ctx context.Context, in *SegmentRequest, opts ...http.CallOption) (*IdReply, error) {
+	var out IdReply
 	pattern := "/segment/{key}"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationLeafSegment))

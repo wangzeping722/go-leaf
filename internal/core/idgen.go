@@ -1,5 +1,8 @@
 package core
 
+import "context"
+
 type IdGen interface {
-	Get() (int64, error)
+	Get(ctx context.Context) (int64, error)
+	Init() bool
 }
