@@ -22,3 +22,43 @@ func IsIdGenerateFailed(err error) bool {
 func ErrorIdGenerateFailed(format string, args ...interface{}) *errors.Error {
 	return errors.New(530, ErrorReason_ID_GENERATE_FAILED.String(), fmt.Sprintf(format, args...))
 }
+
+// segment
+func IsSegmentInitFailed(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_SEGMENT_INIT_FAILED.String() && e.Code == 541
+}
+
+// segment
+func ErrorSegmentInitFailed(format string, args ...interface{}) *errors.Error {
+	return errors.New(541, ErrorReason_SEGMENT_INIT_FAILED.String(), fmt.Sprintf(format, args...))
+}
+
+func IsSegmentTwoBufferAreNull(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_SEGMENT_TWO_BUFFER_ARE_NULL.String() && e.Code == 542
+}
+
+func ErrorSegmentTwoBufferAreNull(format string, args ...interface{}) *errors.Error {
+	return errors.New(542, ErrorReason_SEGMENT_TWO_BUFFER_ARE_NULL.String(), fmt.Sprintf(format, args...))
+}
+
+// snowflake
+func IsSnowflakeInitFailed(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == ErrorReason_SNOWFLAKE_INIT_FAILED.String() && e.Code == 550
+}
+
+// snowflake
+func ErrorSnowflakeInitFailed(format string, args ...interface{}) *errors.Error {
+	return errors.New(550, ErrorReason_SNOWFLAKE_INIT_FAILED.String(), fmt.Sprintf(format, args...))
+}

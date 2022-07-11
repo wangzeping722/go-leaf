@@ -2,7 +2,6 @@ package data
 
 import (
 	"context"
-
 	"go-leaf/internal/biz"
 
 	"github.com/go-kratos/kratos/v2/log"
@@ -21,22 +20,10 @@ func NewLeafAllocRepo(data *Data, logger log.Logger) biz.LeafAllocRepo {
 	}
 }
 
-func (r *leafAllocRepo) Save(ctx context.Context, g *biz.LeafAlloc) (*biz.LeafAlloc, error) {
-	return g, nil
-}
-
-func (r *leafAllocRepo) Update(ctx context.Context, g *biz.LeafAlloc) (*biz.LeafAlloc, error) {
-	return g, nil
-}
-
-func (r *leafAllocRepo) FindByID(context.Context, int64) (*biz.LeafAlloc, error) {
-	return nil, nil
-}
-
-func (r *leafAllocRepo) ListByHello(context.Context, string) ([]*biz.LeafAlloc, error) {
-	return nil, nil
-}
-
-func (r *leafAllocRepo) ListAll(context.Context) ([]*biz.LeafAlloc, error) {
-	return nil, nil
+func (l leafAllocRepo) GetAllTags(ctx context.Context) (ret []string, err error) {
+	err = l.data.db.Raw("select biz_tag from leaf_alloc").Scan(&ret).Error
+	if err != nil {
+		l.log.Error(err)
+	}
+	return
 }

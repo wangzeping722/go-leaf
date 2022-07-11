@@ -24,6 +24,10 @@ func NewData(c *conf.Leaf, logger log.Logger) (*Data, func(), error) {
 		log.NewHelper(logger).Info("closing the data resources")
 	}
 
+	if !c.Segment.Enable {
+		return &Data{}, cleanup, nil
+	}
+
 	ll := gl.Warn
 	if c.Segment.Database.Debug {
 		ll = gl.Info

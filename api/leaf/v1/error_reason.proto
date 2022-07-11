@@ -13,4 +13,11 @@ option objc_class_prefix = "APILeafV1";
 enum ErrorReason {
   UNKNOWN = 0;
   ID_GENERATE_FAILED = 1 [(errors.code) = 530];
+
+  // segment
+  SEGMENT_INIT_FAILED = 2 [(errors.code) = 541];
+  SEGMENT_TWO_BUFFER_ARE_NULL = 3 [(errors.code) = 542];
+
+  // snowflake
+  SNOWFLAKE_INIT_FAILED = 4 [(errors.code) = 550];
 }

@@ -18,7 +18,7 @@ type LeafService struct {
 func NewLeafService(ss *segmentService, logger log.Logger) *LeafService {
 	return &LeafService{
 		segSvc: ss,
-		log:    log.NewHelper(log.With(logger, "module", "service/segment")),
+		log:    log.NewHelper(log.With(logger, "module", "service/leaf")),
 	}
 }
 
